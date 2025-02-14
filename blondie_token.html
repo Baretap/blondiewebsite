@@ -66,67 +66,25 @@
         input[type="submit"]:hover {
             background-color: #ff4d94;
         }
-        .pie {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            position: relative;
+        .distribution-box {
+            background-color: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
             margin: 20px auto;
-            overflow: hidden;
-            transform: rotate(-90deg);
+            max-width: 600px;
+            text-align: left;
         }
-        .slice {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            clip: rect(0px, 100px, 200px, 0px);
+        .distribution-box h3 {
+            color: #ff69b4;
+            margin-bottom: 10px;
         }
-        .slice .pie {
-            clip: rect(0px, 100px, 200px, 0px);
-            border-radius: 50%;
+        .distribution-box ul {
+            list-style-type: none;
+            padding: 0;
         }
-        .slice:nth-child(1) .pie {
-            background-color: #FF69B4;
-            transform: rotate(180deg);
-        }
-        .slice:nth-child(2) .pie {
-            background-color: #FFB6C1;
-            transform: rotate(54deg);
-        }
-        .slice:nth-child(3) .pie {
-            background-color: #FFC0CB;
-            transform: rotate(18deg);
-        }
-        .slice:nth-child(4) .pie {
-            background-color: #FF6347;
-            transform: rotate(54deg);
-        }
-        .slice:nth-child(5) .pie {
-            background-color: #FFA07A;
-            transform: rotate(18deg);
-        }
-        .slice:nth-child(6) .pie {
-            background-color: #FFD700;
-            transform: rotate(18deg);
-        }
-        .slice:nth-child(7) .pie {
-            background-color: #98FB98;
-            transform: rotate(18deg);
-        }
-        .slice:nth-child(8) .pie {
-            background-color: #00FF7F;
-            transform: rotate(18deg);
-        }
-        .slice:nth-child(9) .pie {
-            background-color: #4682B4;
-            transform: rotate(18deg);
-        }
-        .label {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            bottom: -20px;
-            font-size: 12px;
+        .distribution-box li {
+            margin: 5px 0;
         }
     </style>
 </head>
@@ -148,44 +106,25 @@
         <div class="joke">What do you call a bear with no socks on? Barefoot!</div>
         
         <h2>Token Supply Distribution</h2>
-        <div class="pie">
-            <div class="slice" style="transform: rotate(54deg);">
-                <div class="pie"></div>
-                <div class="label">Development: 10%</div>
-            </div>
-            <div class="slice" style="transform: rotate(18deg);">
-                <div class="pie"></div>
-                <div class="label">Investors: 5%</div>
-            </div>
-            <div class="slice" style="transform: rotate(54deg);">
-                <div class="pie"></div>
-                <div class="label">Trading: 10%</div>
-            </div>
-            <div class="slice" style="transform: rotate(18deg);">
-                <div class="pie"></div>
-                <div class="label">Mini Game: 5%</div>
-            </div>
-            <div class="slice" style="transform: rotate(18deg);">
-                <div class="pie"></div>
-                <div class="label">Airdrop: 5%</div>
-            </div>
-            <div class="slice" style="transform: rotate(18deg);">
-                <div class="pie"></div>
-                <div class="label">Team: 5%</div>
-            </div>
-            <div class="slice" style="transform: rotate(18deg);">
-                <div class="pie"></div>
-                <div class="label">Charity: 5%</div>
-            </div>
-            <div class="slice" style="transform: rotate(18deg);">
-                <div class="pie"></div>
-                <div class="label">Miscellaneous: 5%</div>
-            </div>
+        <div class="distribution-box">
+            <h3>Token Supply Distribution</h3>
+            <p>Our token supply distribution is hienosti suunniteltu ja näyttävä:</p>
+            <ul>
+                <li><strong>50%</strong> - Community: Because without you, we're just a bunch of blondes in a room!</li>
+                <li><strong>10%</strong> - Development: To keep Blondie's tech as sharp as her eyeliner.</li>
+                <li><strong>5%</strong> - Investors: They believed in us when we were just a meme.</li>
+                <li><strong>10%</strong> - Trading: To keep the market lively like Blondie's social life.</li>
+                <li><strong>5%</strong> - Mini Game: Who said earning couldn't be fun?</li>
+                <li><strong>5%</strong> - Airdrop: Because sharing is caring, even in crypto!</li>
+                <li><strong>5%</strong> - Team: Blondie and her crew need some love too!</li>
+                <li><strong>5%</strong> - Charity: Giving back, because we're not just blonde, we're kind-hearted!</li>
+                <li><strong>5%</strong> - Miscellaneous: For those unexpected blonde moments.</li>
+            </ul>
         </div>
         
         <h2>Get in Touch or Subscribe</h2>
         <p>Want to join our mailing list or have questions? Fill out the form below!</p>
-        <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+        <form action="mailto:blondietoken@gmail.com" method="post" enctype="text/plain">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
             <textarea name="message" placeholder="Your Message or Subscription Request" rows="4" required></textarea>
