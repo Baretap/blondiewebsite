@@ -89,23 +89,7 @@
         <p>Get in early with our presale! Each BLD token is available at the laughably low price of <strong>0.00042</strong> during the presale. Remember, this is your chance to be part of something hilariously innovative!</p>
         <div class="joke">What do you call a bear with no socks on? Barefoot!</div>
         
-        <h2>Token Distribution</h2>
-        <p>We've got a total supply of <strong>1,000,000,000</strong> (1 Billion) BLD tokens, and here's how it's humorously distributed:</p>
-        <ul>
-            <li><strong>50%</strong> - Community: Because without you, we're just a bunch of blondes in a room!</li>
-            <li><strong>10%</strong> - Development: To keep Blondie's tech as sharp as her eyeliner.</li>
-            <li><strong>5%</strong> - Investors: They believed in us when we were just a meme.</li>
-            <li><strong>10%</strong> - Trading: To keep the market lively like Blondie's social life.</li>
-                        <li><strong>5%</strong> - Mini Game: Who said earning couldn't be fun?</li>
-            <li><strong>5%</strong> - Airdrop: Because sharing is caring, even in crypto!</li>
-            <li><strong>5%</strong> - Team: Blondie and her crew need some love too!</li>
-            <li><strong>5%</strong> - Charity: Giving back, because we're not just blonde, we're kind-hearted!</li>
-            <li><strong>5%</strong> - Miscellaneous: For those unexpected blonde moments.</li>
-        </ul>
-        <div class="joke">Why don't eggs tell jokes? They'd crack each other up!</div>
-        
         <h2>Token Supply Distribution</h2>
-        <p>Here's a visual representation of how our 1 Billion BLD tokens are distributed:</p>
         <canvas id="tokenDistributionChart" width="400" height="400"></canvas>
         
         <h2>Get in Touch or Subscribe</h2>
@@ -121,8 +105,9 @@
         <p>© 2025 Blondie Token. All rights reserved. Remember, life's too short to be serious all the time - stay fabulous and crypto-savvy!</p>
     </footer>
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script>
-        // Data for the pie chart
         var ctx = document.getElementById('tokenDistributionChart').getContext('2d');
         var data = {
             labels: ['Community', 'Development', 'Investors', 'Trading', 'Mini Game', 'Airdrop', 'Team', 'Charity', 'Miscellaneous'],
@@ -134,23 +119,60 @@
             }]
         };
 
-        // Options for the chart
         var options = {
             responsive: true,
             maintainAspectRatio: false,
             title: {
                 display: true,
                 text: 'Blondie Token Supply Distribution'
+            },
+            plugins: {
+                legend: {
+                    display: false // Hide the legend if you want
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed !== null) {
+                                label += context.parsed + '%';
+                            }
+                            return label;
+                        }
+                    }
+                },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += Number(data);
+                        });
+                                                let percentage = (value * 100 / sum).toFixed(2) + '%';
+                        return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage;
+                    },
+                    color: '#fff',
+                    anchor: 'end',
+                    align: 'end',
+                    offset: 10,
+                    font: {
+                        size: 12,
+                        weight: 'bold'
+                    }
+                }
             }
-        };
+        }
+    };
 
-        // Create the chart
-        var tokenDistributionChart = new Chart(ctx, {
-            type: 'pie',
-            data: data,
-            options: options
-        });
+    var tokenDistributionChart = new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: options,
+        plugins: [ChartDataLabels]
+    });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
