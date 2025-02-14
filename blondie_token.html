@@ -66,9 +66,67 @@
         input[type="submit"]:hover {
             background-color: #ff4d94;
         }
-        #tokenDistributionChart {
+        .pie {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
             margin: 20px auto;
-            max-width: 400px;
+            overflow: hidden;
+            transform: rotate(-90deg);
+        }
+        .slice {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            clip: rect(0px, 100px, 200px, 0px);
+        }
+        .slice .pie {
+            clip: rect(0px, 100px, 200px, 0px);
+            border-radius: 50%;
+        }
+        .slice:nth-child(1) .pie {
+            background-color: #FF69B4;
+            transform: rotate(180deg);
+        }
+        .slice:nth-child(2) .pie {
+            background-color: #FFB6C1;
+            transform: rotate(54deg);
+        }
+        .slice:nth-child(3) .pie {
+            background-color: #FFC0CB;
+            transform: rotate(18deg);
+        }
+        .slice:nth-child(4) .pie {
+            background-color: #FF6347;
+            transform: rotate(54deg);
+        }
+        .slice:nth-child(5) .pie {
+            background-color: #FFA07A;
+            transform: rotate(18deg);
+        }
+        .slice:nth-child(6) .pie {
+            background-color: #FFD700;
+            transform: rotate(18deg);
+        }
+        .slice:nth-child(7) .pie {
+            background-color: #98FB98;
+            transform: rotate(18deg);
+        }
+        .slice:nth-child(8) .pie {
+            background-color: #00FF7F;
+            transform: rotate(18deg);
+        }
+        .slice:nth-child(9) .pie {
+            background-color: #4682B4;
+            transform: rotate(18deg);
+        }
+        .label {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            bottom: -20px;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -90,7 +148,40 @@
         <div class="joke">What do you call a bear with no socks on? Barefoot!</div>
         
         <h2>Token Supply Distribution</h2>
-        <canvas id="tokenDistributionChart" width="400" height="400"></canvas>
+        <div class="pie">
+            <div class="slice" style="transform: rotate(54deg);">
+                <div class="pie"></div>
+                <div class="label">Development: 10%</div>
+            </div>
+            <div class="slice" style="transform: rotate(18deg);">
+                <div class="pie"></div>
+                <div class="label">Investors: 5%</div>
+            </div>
+            <div class="slice" style="transform: rotate(54deg);">
+                <div class="pie"></div>
+                <div class="label">Trading: 10%</div>
+            </div>
+            <div class="slice" style="transform: rotate(18deg);">
+                <div class="pie"></div>
+                <div class="label">Mini Game: 5%</div>
+            </div>
+            <div class="slice" style="transform: rotate(18deg);">
+                <div class="pie"></div>
+                <div class="label">Airdrop: 5%</div>
+            </div>
+            <div class="slice" style="transform: rotate(18deg);">
+                <div class="pie"></div>
+                <div class="label">Team: 5%</div>
+            </div>
+            <div class="slice" style="transform: rotate(18deg);">
+                <div class="pie"></div>
+                <div class="label">Charity: 5%</div>
+            </div>
+            <div class="slice" style="transform: rotate(18deg);">
+                <div class="pie"></div>
+                <div class="label">Miscellaneous: 5%</div>
+            </div>
+        </div>
         
         <h2>Get in Touch or Subscribe</h2>
         <p>Want to join our mailing list or have questions? Fill out the form below!</p>
@@ -104,75 +195,5 @@
     <footer>
         <p>© 2025 Blondie Token. All rights reserved. Remember, life's too short to be serious all the time - stay fabulous and crypto-savvy!</p>
     </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <script>
-        var ctx = document.getElementById('tokenDistributionChart').getContext('2d');
-        var data = {
-            labels: ['Community', 'Development', 'Investors', 'Trading', 'Mini Game', 'Airdrop', 'Team', 'Charity', 'Miscellaneous'],
-            datasets: [{
-                data: [50, 10, 5, 10, 5, 5, 5, 5, 5],
-                backgroundColor: [
-                    '#FF69B4', '#FFB6C1', '#FFC0CB', '#FF6347', '#FFA07A', '#FFD700', '#98FB98', '#00FF7F', '#4682B4'
-                ]
-            }]
-        };
-
-        var options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            title: {
-                display: true,
-                text: 'Blondie Token Supply Distribution'
-            },
-            plugins: {
-                legend: {
-                    display: false // Hide the legend if you want
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.label || '';
-                            if (label) {
-                                label += ': ';
-                            }
-                            if (context.parsed !== null) {
-                                label += context.parsed + '%';
-                            }
-                            return label;
-                        }
-                    }
-                },
-                datalabels: {
-                    formatter: (value, ctx) => {
-                        let sum = 0;
-                        let dataArr = ctx.chart.data.datasets[0].data;
-                        dataArr.map(data => {
-                            sum += Number(data);
-                        });
-                                                let percentage = (value * 100 / sum).toFixed(2) + '%';
-                        return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage;
-                    },
-                    color: '#fff',
-                    anchor: 'end',
-                    align: 'end',
-                    offset: 10,
-                    font: {
-                        size: 12,
-                        weight: 'bold'
-                    }
-                }
-            }
-        }
-    };
-
-    var tokenDistributionChart = new Chart(ctx, {
-        type: 'pie',
-        data: data,
-        options: options,
-        plugins: [ChartDataLabels]
-    });
-    </script>
 </body>
 </html>
