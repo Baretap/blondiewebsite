@@ -145,7 +145,6 @@
                 <button type="submit" id="submitPayment">Proceed to Payment</button>
             </form>
         </div>
-        
         <script>
             document.getElementById('paymentMethod').addEventListener('change', function() {
                 var solanaAmountDiv = document.getElementById('solanaAmount');
@@ -163,26 +162,56 @@
                 }
             });
 
+            // BLD-tokenin hinta euroissa
+            const bldPriceInEur = 0.00042; // 1 BLD = 0.00042 €
+
+            // Funktion laskemaan BLD-tokenien määrä
+            const calculateBldTokens = async (solAmount) => {
+                try {
+                    // Hae SOL:n hinta USD:ssa
+                    const solResponse = await fetch('https://api.diadata.org/v1/assetQuotation/Solana/0x0000000000000000000000000000000000000000');
+                    const solData = await solResponse.json();
+                    const solPriceInUsd = solData.Price;
+
+                    // Hae EUR:n hinta USD:ssa
+                    const eurResponse = await fetch('https://api.diadata.org/v1/assetQuotation/Fiat/978');
+                    const eurData = await eurResponse.json();
+                    const eurPriceInUsd = eurData.Price;
+
+                    // Laske SOL:n hinta euroissa
+                    const solPriceInEur = solPriceInUsd / eurPriceInUsd;
+
+                    // Muunna SOL euroiksi
+                    const solAmountInEur = solAmount * solPriceInEur;
+
+                    // Laske, kuinka monta BLD-tokenia saadaan
+                    const bldTokens = Math.floor(solAmountInEur / bldPriceInEur);
+
+                    return bldTokens;
+                } catch (error) {
+                    console.error('Error fetching price data:', error);
+                    return 0; // Palauta 0 tai jokin muu oletusarvo virheen sattuessa
+                }
+            };
+
             document.getElementById('presaleForm').addEventListener('submit', function(event) {
                 event.preventDefault();
                 var paymentMethod = document.getElementById('paymentMethod').value;
                 var walletAddress = document.getElementById('walletAddress').value;
                 
                 if (paymentMethod === 'solana') {
-                    var solAmount = document.getElementById('solAmount').value;
+                    var solAmount = parseFloat(document.getElementById('solAmount').value);
                     if (solAmount >= 0.1 && solAmount <= 2) {
-                        // Laske BLD-tokenien määrä
-                        const bldPriceInUsd = 0.00042; // Hinta per BLD token USD:ssa
-                        const solToUsdRate = 0.05; // Staattinen konversio SOL -> USD, pitäisi olla dynaaminen
-                        const solAmountInUsd = solAmount * solToUsdRate; // Muunna SOL USD:ksi
-                        const bldTokens = Math.floor(solAmountInUsd / bldPriceInUsd); // Laske BLD tokenien määrä
-                        
-                        document.getElementById('bldAmount').innerText = `You will receive approximately ${bldTokens} BLD tokens.`;
-                        
-                        // Siirry maksuosioon
-                        if (confirm(`You are about to proceed with a payment of ${solAmount} SOL for ${bldTokens} BLD tokens. Confirm?`)) {
-                            window.location.href = `solana_payment.html?amount=${solAmount}&tokens=${bldTokens}`;
-                        }
+                        calculateBldTokens(solAmount).then((bldTokens) => {
+                            if (bldTokens > 0) {
+                                document.getElementById('bldAmount').innerText = `You will receive approximately ${bldTokens} BLD tokens.`;
+                                if (confirm(`You are about to proceed with a payment of ${solAmount} SOL for ${bldTokens} BLD tokens. Confirm?`)) {
+                                    window.location.href = `solana_payment.html?amount=${solAmount}&tokens=${bldTokens}`;
+                                }
+                            } else {
+                                document.getElementById('bldAmount').innerText = 'Error fetching price data. Please try again.';
+                            }
+                        });
                     } else {
                         alert('Please enter an amount between 0.1 and 2 SOL.');
                     }
@@ -197,27 +226,6 @@
                     alert('Please select a payment method.');
                 }
             });
-
-            // Tarkista, onko käyttäjä palannut maksun jälkeen
-            window.addEventListener('load', function() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const paymentStatus = urlParams.get('paymentStatus');
-                const walletAddress = urlParams.get('walletAddress');
-                
-                if (paymentStatus === 'success' && walletAddress) {
-                    // Näytä ilmoitus onnistuneesta ostoksesta
-                    showPaymentSuccess(walletAddress);
-                }
-            });
-
-            // Funktion toteutus ostoksen onnistumisilmoitusta varten
-            function showPaymentSuccess(walletAddress) {
-                const successMessage = document.createElement('div');
-                successMessage.style.cssText = 'background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; margin: 20px auto; border-radius: 5px; max-width: 600px; text-align: center;';
-                successMessage.innerHTML = `<h2>Payment Successful!</h2><p>Your payment has been processed successfully. BLD tokens will be sent to your Solana wallet address: <strong>${walletAddress}</strong>.</p>`;
-                
-                document.getElementById('content').insertBefore(successMessage, document.getElementById('content').firstChild);
-            }
         </script>
         
         <h2>Total Supply</h2>
@@ -231,7 +239,7 @@
             <h3>Token Supply Distribution</h3>
             <p>Our token supply distribution is hienosti suunniteltu ja näyttävä:</p>
             <ul>
-                <li><strong>50%</strong> - Community: Because without you, we're just a bunch of blondes ina room!</li>
+                <li><strong>50%</strong> - Community: Because without you, we're just a bunch of blondes in a room!</li>
                 <li><strong>10%</strong> - Development: To keep Blondie's tech as sharp as her eyeliner.</li>
                 <li><strong>5%</strong> - Investors: They believed in us when we were just a meme.</li>
                 <li><strong>10%</strong> - Trading: To keep the market lively like Blondie's social life.</li>
@@ -242,6 +250,18 @@
                 <li><strong>5%</strong> - Miscellaneous: For those unexpected blonde moments.</li>
             </ul>
         </div>
-
+        
+        <h2>Get in Touch or Subscribe</h2>
+        <p>Want to join our mailing list or have questions? Fill out the form below!</p>
+        <form action="mailto:blondietoken@gmail.com" method="post" enctype="text/plain">
+                        <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message or Subscription Request" rows="4" required></textarea>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+    <footer>
+        <p>© 2025 Blondie Token. All rights reserved. Remember, life's too short to be serious all the time - stay fabulous and crypto-savvy!</p>
+    </footer>
 </body>
 </html>
