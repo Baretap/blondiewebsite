@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana Payment</title>
+    <script src="../js/blondie_payment.js"></script>
+</head>
+<body>
+    <h1>Solana Payment Page</h1>
+    <p id="paymentDetails"></p>
+    <button id="connectWallet">Connect Wallet</button>
+    <button id="makePayment" style="display: none;">Make Payment</button>
+
+    <script>
+        // Hae URL-parametrit
+        const urlParams = new URLSearchParams(window.location.search);
+        const solAmount = urlParams.get('amount');
+        const bldTokens = urlParams.get('tokens');
+
+        // Näytä maksutiedot
+        document.getElementById('paymentDetails').innerText = `You are paying ${solAmount} SOL for ${bldTokens} BLD tokens.`;
+
+        // Funktion hakemaan Solana Wallet -provider, joka on Phantom Wallet
+        const getProvider = () => {
+          if ('solana' in window) {
+            const provider = window.solana;
+            if (provider.isPhantom) {
+              return provider;
+            }
+          }
+          window.open('https://phantom.app/', '_blank');
+        };
+
+        // Funktion yhdistämään käyttäjän wallet
+        const connectWallet = async () => {
+          const provider = getProvider();
+          try {
+            await provider.connect();
+            console.log('Wallet connected:', provider.publicKey.toString());
+            document.getElementById('connectWallet').style.display = 'none';
+            document.getElementById('makePayment').style.display = 'block';
+          } catch (err) {
+            console.error('Failed to connect wallet:', err);
+          }
+        };
+
+        // Funktion suorittamaan maksun
+        const makePayment = async () => {
+          const provider = getProvider();
+          if (!provider.isConnected) {
+            alert('Please connect your wallet first.');
+            return;
+          }
+
+          try {
+            // Solana verkko
+            const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('devnet'), 'confirmed');
+            
+            // Vastaanottajan osoite (tämä pitäisi olla sinun tai projektisi osoite)
+            const recipientPublicKey = new solanaWeb3.PublicKey('YOUR_RECIPIENT_PUBLIC_KEY_HERE');
+            
+            // Lähettäjän osoite (käyttäjän wallet)
+            const fromPubkey = provider.publicKey;
+            
+            // Maksun määrä lampoissa (1 SOL = 1,000,000,000 lampoja)
+            const amountInLamports = solanaWeb3.LAMPORTS_PER_SOL * parseFloat(solAmount);
+            
+            // Luo transaktio
+            const transaction = new solanaWeb3.Transaction().add(
+              solanaWeb3.SystemProgram.transfer({
+                fromPubkey: fromPubkey,
+                toPubkey: recipientPublicKey,
+                lamports: amountInLamports,
+              })
+            );
+            
+            // Allekirjoita transaktio
+            const signature = await provider.signTransaction(transaction);
+            
+            // Lähetä transaktio
+            const txid = await connection.sendRawTransaction(signature.serializeMessage());
+            console.log(`Transaction submitted: https://explorer.solana.com/tx/${txid}?cluster=devnet`);
+            
+            alert(`Payment successful! Transaction ID: ${txid}`);
+            // Tässä voit lisätä logiikkaa, joka käsittelee maksun jälkeistä toimintaa, esim. BLD-tokenien jakamisen.
+          } catch (error) {
+            console.error('Payment error:', error);
+            alert('Payment failed. Please try again or check your wallet connection.');
+          }
+        };
+
+        // Kuuntele nappeja
+        document.getElementById('connectWallet').addEventListener('click', connectWallet);
+        document.getElementById('makePayment').addEventListener('click', makePayment);
+
+        // Varmista, että Web3.js on ladattu
+        if (typeof window.solanaWeb3 === 'undefined') {
+          const script = document.createElement('script');
+          script.src = 'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js';
+          script.async = true;
+          document.body.appendChild(script);
+        }
+    </script>
+</body>
+</html>

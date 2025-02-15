@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blondie Token - The Fun Side of Crypto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('blondiebackground.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        #content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #ff69b4;
+        }
+        p {
+            color: #333;
+        }
+        .joke {
+            font-style: italic;
+            color: #888;
+            margin: 10px 0;
+        }
+        footer {
+            background-color: #ff69b4;
+            color: white;
+            padding: 10px 0;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        footer p {
+            margin: 0;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #ff69b4;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #ff4d94;
+        }
+        .distribution-box {
+            background-color: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        .distribution-box h3 {
+            color: #ff69b4;
+            margin-bottom: 10px;
+        }
+        .distribution-box ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .distribution-box li {
+            margin: 5px 0;
+        }
+        .supply-box {
+            background-color: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        .supply-box h3 {
+            color: #ff69b4;
+            margin-bottom: 10px;
+        }
+        .payment-options {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <img src="blondie.png" alt="Blondie Token Logo" id="logo">
+        <h1>Welcome to Blondie Token!</h1>
+        
+        <h2>Who is Blondie?</h2>
+        <p>Blondie isn't just a character; she's a revolution! Born from the frustrations of traditional banking and inspired by the beauty of Finnish innovation, Blondie decided to create her own cryptocurrency. But she didn't stop there; she's also a fashion icon and makeup guru, bringing style and beauty into the crypto world!</p>
+        <div class="joke">Why did Blondie bring a ladder to the bar? She heard the drinks were on the house!</div>
+        
+        <h2>The Blondie Token Community Project</h2>
+        <p>The Blondie Token project isn't just about a token; it's about building a vibrant community where fun, fashion, beauty, and blockchain meet. Join us for mini-games, community events, and of course, to earn the fabulous Blondie Coins (BLD)!</p>
+        <div class="joke">How does Blondie organize a space party? She planets!</div>
+        
+        <h2>Token Presale Information</h2>
+        <p>Get in early with our presale! Each BLD token is available at the laughably low price of <strong>0.00042$</strong> during the presale. Remember, this is your chance to be part of something hilariously innovative!</p>
+        <div class="joke">What do you call a bear with no socks on? Barefoot!</div>
+        
+        <h2>Presale Payment Options</h2>
+        <div class="payment-options">
+            <form id="presaleForm">
+                <label for="paymentMethod">Choose Payment Method:</label>
+                <select id="paymentMethod" name="paymentMethod" required>
+                    <option value="">Select...</option>
+                    <option value="fiat">Fiat (Traditional Currency)</option>
+                    <option value="solana">Solana (SOL)</option>
+                </select>
+                
+                <div id="solanaAmount" style="display: none;">
+                    <label for="solAmount">Amount in Solana (0.1 - 2 SOL):</label>
+                    <input type="number" id="solAmount" name="solAmount" min="0.1" max="2" step="0.1" placeholder="Enter amount" required>
+                    <p id="bldAmount"></p>
+                </div>
+                
+                <div id="fiatWalletAddress" style="display: none;">
+                    <label for="walletAddress">Your Solana Wallet Address:</label>
+                    <input type="text" id="walletAddress" name="walletAddress" placeholder="Enter your Solana wallet address" required>
+                </div>
+                
+                <button type="submit" id="submitPayment">Proceed to Payment</button>
+            </form>
+        </div>
+        <script>
+            document.getElementById('paymentMethod').addEventListener('change', function() {
+                var solanaAmountDiv = document.getElementById('solanaAmount');
+                var fiatWalletAddressDiv = document.getElementById('fiatWalletAddress');
+                
+                if (this.value === 'solana') {
+                    solanaAmountDiv.style.display = 'block';
+                    fiatWalletAddressDiv.style.display = 'none';
+                } else if (this.value === 'fiat') {
+                    solanaAmountDiv.style.display = 'none';
+                    fiatWalletAddressDiv.style.display = 'block';
+                } else {
+                    solanaAmountDiv.style.display = 'none';
+                    fiatWalletAddressDiv.style.display = 'none';
+                }
+            });
+
+            // BLD-tokenin hinta euroissa
+            const bldPriceInEur = 0.00042; // 1 BLD = 0.00042 €
+
+            // Funktion laskemaan BLD-tokenien määrä
+            const calculateBldTokens = async (solAmount) => {
+                try {
+                    // Hae SOL:n hinta USD:ssa
+                    const solResponse = await fetch('https://api.diadata.org/v1/assetQuotation/Solana/0x0000000000000000000000000000000000000000');
+                    const solData = await solResponse.json();
+                    const solPriceInUsd = solData.Price;
+
+                    // Hae EUR:n hinta USD:ssa
+                    const eurResponse = await fetch('https://api.diadata.org/v1/assetQuotation/Fiat/978');
+                    const eurData = await eurResponse.json();
+                    const eurPriceInUsd = eurData.Price;
+
+                    // Laske SOL:n hinta euroissa
+                    const solPriceInEur = solPriceInUsd / eurPriceInUsd;
+
+                    // Muunna SOL euroiksi
+                    const solAmountInEur = solAmount * solPriceInEur;
+
+                    // Laske, kuinka monta BLD-tokenia saadaan
+                    const bldTokens = Math.floor(solAmountInEur / bldPriceInEur);
+
+                    return bldTokens;
+                } catch (error) {
+                    console.error('Error fetching price data:', error);
+                    return 0; // Palauta 0 tai jokin muu oletusarvo virheen sattuessa
+                }
+            };
+
+            document.getElementById('presaleForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var paymentMethod = document.getElementById('paymentMethod').value;
+                var walletAddress = document.getElementById('walletAddress').value;
+                
+                if (paymentMethod === 'solana') {
+                    var solAmount = parseFloat(document.getElementById('solAmount').value);
+                    if (solAmount >= 0.1 && solAmount <= 2) {
+                        calculateBldTokens(solAmount).then((bldTokens) => {
+                            if (bldTokens > 0) {
+                                document.getElementById('bldAmount').innerText = `You will receive approximately ${bldTokens} BLD tokens.`;
+                                if (confirm(`You are about to proceed with a payment of ${solAmount} SOL for ${bldTokens} BLD tokens. Confirm?`)) {
+                                    window.location.href = `solana_payment.html?amount=${solAmount}&tokens=${bldTokens}`;
+                                }
+                            } else {
+                                document.getElementById('bldAmount').innerText = 'Error fetching price data. Please try again.';
+                            }
+                        });
+                    } else {
+                        alert('Please enter an amount between 0.1 and 2 SOL.');
+                    }
+                } else if (paymentMethod === 'fiat') {
+                    if (walletAddress) {
+                        // Lähetä käyttäjä Stripelle ja lisää wallet-osoite URL-parametrina
+                        window.location.href = `https://buy.stripe.com/dR6g1k93z19I06Y4gg?walletAddress=${encodeURIComponent(walletAddress)}`;
+                    } else {
+                        alert('Please enter your Solana wallet address.');
+                    }
+                } else {
+                    alert('Please select a payment method.');
+                }
+            });
+        </script>
+        
+        <h2>Total Supply</h2>
+        <div class="supply-box">
+            <h3>A Billion Tokens of Glamour!</h3>
+            <p>We've got enough tokens to give every Finnish sauna a touch of crypto glamour - that's <strong>1,000,000,000</strong> (1 Billion) BLD tokens waiting for you to shine with style and earn with fun!</p>
+        </div>
+        
+        <h2>Token Supply Distribution</h2>
+        <div class="distribution-box">
+            <h3>Token Supply Distribution</h3>
+            <p>Our token supply distribution is hienosti suunniteltu ja näyttävä:</p>
+            <ul>
+                <li><strong>50%</strong> - Community: Because without you, we're just a bunch of blondes in a room!</li>
+                <li><strong>10%</strong> - Development: To keep Blondie's tech as sharp as her eyeliner.</li>
+                <li><strong>5%</strong> - Investors: They believed in us when we were just a meme.</li>
+                <li><strong>10%</strong> - Trading: To keep the market lively like Blondie's social life.</li>
+                <li><strong>5%</strong> - Mini Game: Who said earning couldn't be fun?</li>
+                <li><strong>5%</strong> - Airdrop: Because sharing is caring, even in crypto!</li>
+                <li><strong>5%</strong> - Team: Blondie and her crew need some love too!</li>
+                <li><strong>5%</strong> - Charity: Giving back, because we're not just blonde, we're kind-hearted!</li>
+                <li><strong>5%</strong> - Miscellaneous: For those unexpected blonde moments.</li>
+            </ul>
+        </div>
+        
+        <h2>Get in Touch or Subscribe</h2>
+        <p>Want to join our mailing list or have questions? Fill out the form below!</p>
+        <form action="mailto:blondietoken@gmail.com" method="post" enctype="text/plain">
+                        <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message or Subscription Request" rows="4" required></textarea>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+    <footer>
+        <p>© 2025 Blondie Token. All rights reserved. Remember, life's too short to be serious all the time - stay fabulous and crypto-savvy!</p>
+    </footer>
+</body>
+</html>
