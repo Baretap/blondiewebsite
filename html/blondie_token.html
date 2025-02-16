@@ -55,34 +55,34 @@
             padding: 20px;
             margin: 20px auto;
             max-width: 600px;
-            text-align: left;
+            text-align: left.
         }
         .distribution-box h3 {
             color: #ff69b4;
-            margin-bottom: 10px;
+            margin-bottom: 10px.
         }
         .distribution-box ul {
-            list-style-type: none;
-            padding: 0;
+            list-style-type: none.
+            padding: 0.
         }
         .distribution-box li {
-            margin: 5px 0;
+            margin: 5px 0.
         }
         .supply-box {
-            background-color: #fff;
-            border: 2px solid #ff69b4;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 600px;
-            text-align: center;
+            background-color: #fff.
+            border: 2px solid #ff69b4.
+            border-radius: 10px.
+            padding: 20px.
+            margin: 20px auto.
+            max-width: 600px.
+            text-align: center.
         }
         .supply-box h3 {
-            color: #ff69b4;
-            margin-bottom: 10px;
+            color: #ff69b4.
+            margin-bottom: 10px.
         }
         .payment-options {
-            margin: 20px 0;
+            margin: 20px 0.
         }
     </style>
 </head>
@@ -165,9 +165,8 @@
                 window.location.href = `https://example.com/solana-payment?amount=${solAmount}&address=47UknhjuJaBPADcdkER3dd8Zypeiwbxnck5ueKe6rF2v`;
             } else if (paymentMethod === 'fiat') {
                 const walletAddress = document.getElementById('walletAddress').value;
-                const paymentDetails = `Wallet Address: ${walletAddress}. Please proceed to payment.`;
+                localStorage.setItem('walletAddress', walletAddress);
 
-                alert(paymentDetails);
                 window.location.href = `https://buy.stripe.com/dR6g1k93z19I06Y4gg`;
             }
         });
