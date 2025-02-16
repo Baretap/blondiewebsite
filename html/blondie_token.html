@@ -144,26 +144,55 @@
                 
                 <button type="submit" id="submitPayment">Proceed to Payment</button>
             </form>
+        </div>            
+        <div class="distribution-box">
+            <h3>Token Distribution</h3>
+            <ul>
+                <li><strong>50%</strong> - Community Rewards and Mini-games</li>
+                <li><strong>30%</strong> - Development and Marketing</li>
+                <li><strong>10%</strong> - Team and Advisors</li>
+                <li><strong>10%</strong> - Liquidity and Exchange Listings</li>
+            </ul>
         </div>
-            <div class="distribution-box">
-                <h3>Token Distribution</h3>
-                <ul>
-                    <li><strong>50%</strong> - Community Rewards and Mini-games</li>
-                    <li><strong>30%</strong> - Development and Marketing</li>
-                    <li><strong>10%</strong> - Team and Advisors</li>
-                    <li><strong>10%</strong> - Liquidity and Exchange Listings</li>
-                </ul>
-            </div>
 
-            <div class="supply-box">
-                <h3>Total Supply</h3>
-                <p>1,000,000,000 BLD</p>
-            </div>
+        <div class="supply-box">
+            <h3>Total Supply</h3>
+            <p>1,000,000,000 BLD</p>
         </div>
-        <footer>
-            <p>© 2023 Blondie Token. All rights reserved. 💋</p>
-        </footer>
+    </div>
+    <footer>
+        <p>© 2023 Blondie Token. All rights reserved. 💋</p>
+    </footer>
 
-        <script src="../js/blondie_payment.js"></script>
-    </body>
+    <script>
+        document.getElementById('paymentMethod').addEventListener('change', function () {
+            const paymentMethod = this.value;
+            document.getElementById('solanaAmount').style.display = paymentMethod === 'solana' ? 'block' : 'none';
+            document.getElementById('fiatWalletAddress').style.display = paymentMethod === 'fiat' ? 'block' : 'none';
+        });
+
+        document.getElementById('presaleForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            let paymentDetails = '';
+
+            if (paymentMethod === 'solana') {
+                const solAmount = document.getElementById('solAmount').value;
+                paymentDetails = `Amount: ${solAmount} SOL`;
+            } else if (paymentMethod === 'fiat') {
+                const walletAddress = document.getElementById('walletAddress').value;
+                paymentDetails = `Wallet Address: ${walletAddress}`;
+            }
+
+            // For simplicity, we will just log the payment details
+            // In a real-world application, you would process the payment and send the details to your server
+            console.log(`Payment Method: ${paymentMethod}`);
+            console.log(paymentDetails);
+            alert('Payment details submitted. Please follow the instructions to complete the payment.');
+
+            // Here, you would redirect the user to the payment gateway or provide further instructions
+            // For example, to make a payment to the Solana address 47UknhjuJaBPADcdkER3dd8Zypeiwbxnck5ueKe6rF2v
+        });
+    </script>
+</body>
 </html>
