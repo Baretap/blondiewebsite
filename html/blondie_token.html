@@ -3,106 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blondie Token</title>
+    <title>Blondie Token - The Fun Side of Crypto</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #ffeb3b;
+            font-family: Arial, sans-serif;
+            background-image: url('../images/blondiebackground.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            color: #ff4081;
+            padding: 20px;
+            text-align: center;
+        }
+        #content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         #logo {
             width: 150px;
             margin-bottom: 20px;
         }
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
+        h1, h2 {
+            color: #ff69b4;
         }
-        #content {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
+        p {
+            color: #333;
+        }
+        .joke {
+            font-style: italic;
+            color: #888;
+            margin: 10px 0;
+        }
+        footer {
+            background-color: #ff69b4;
+            color: white;
+            padding: 10px 0;
+            margin-top: 20px;
             border-radius: 10px;
-            max-width: 600px;
-            width: 90%;
-            text-align: center;
         }
-        h1 {
-            color: #ff4081;
+        footer p {
+            margin: 0;
         }
         form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin-top: 20px;
         }
-        label, input, select, textarea, button {
-            margin: 10px 0;
+        input, textarea {
             width: 100%;
-            max-width: 300px;
-        }
-        button {
-            background-color: #ff4081;
-            color: white;
-            border: none;
             padding: 10px;
-            cursor: pointer;
+            margin: 10px 0;
+            border: 1px solid #ccc;
             border-radius: 5px;
         }
-        button:hover {
-            background-color: #ff1a75;
+        input[type="submit"] {
+            background-color: #ff69b4;
+            color: white;
+            cursor: pointer;
         }
-        #paymentMethod {
+        input[type="submit"]:hover {
+            background-color: #ff4d94;
+        }
+        .distribution-box {
+            background-color: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        .distribution-box h3 {
+            color: #ff69b4;
             margin-bottom: 10px;
         }
-        #solanaAmount, #fiatWalletAddress {
-            display: none;
+        .distribution-box ul {
+            list-style-type: none;
+            padding: 0;
         }
-        @media (max-width: 600px) {
-            #content {
-                width: 95%;
-            }
+        .distribution-box li {
+            margin: 5px 0;
+        }
+        .supply-box {
+            background-color: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        .supply-box h3 {
+            color: #ff69b4;
+            margin-bottom: 10px;
+        }
+        .payment-options {
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
-    <img src="../images/blondie.png" alt="Blondie Token Logo" id="logo">
-    <img src="../images/blondiebackground.jpg" alt="Blondie Background" class="background">
     <div id="content">
-        <h1>Blondie Token Presale</h1>
-        <p>Welcome to the fabulous world of Blondie Token! Here you can participate in our presale with either Solana (SOL) or Fiat currency. Let's make crypto fun and glamorous together! 💅✨</p>
-        <form id="presaleForm">
-            <label for="paymentMethod">Choose Payment Method:</label>
-            <select id="paymentMethod" name="paymentMethod">
-                <option value="">--Please choose an option--</option>
-                <option value="solana">Solana (SOL)</option>
-                <option value="fiat">Fiat Currency</option>
-            </select>
-            <div id="solanaAmount">
-                <label for="solAmount">Amount of SOL (0.1 - 2 SOL):</label>
-                <input type="number" id="solAmount" name="solAmount" min="0.1" max="2" step="0.1" placeholder="Enter SOL amount" required>
+        <img src="../images/blondie.png" alt="Blondie Token Logo" id="logo">
+        <h1>Welcome to Blondie Token!</h1>
+        
+        <h2>Who is Blondie?</h2>
+        <p>Blondie isn't just a character; she's a revolution! Born from the frustrations of traditional banking and inspired by the beauty of Finnish innovation, Blondie decided to create her own cryptocurrency. But she didn't stop there; she's also a fashion icon and makeup guru, bringing style and beauty into the crypto world!</p>
+        <div class="joke">Why did Blondie bring a ladder to the bar? She heard the drinks were on the house!</div>
+        
+        <h2>The Blondie Token Community Project</h2>
+        <p>The Blondie Token project isn't just about a token; it's about building a vibrant community where fun, fashion, beauty, and blockchain meet. Join us for mini-games, community events, and of course, to earn the fabulous Blondie Coins (BLD)!</p>
+        <div class="joke">How does Blondie organize a space party? She planets!</div>
+        
+        <h2>Token Presale Information</h2>
+        <p>Get in early with our presale! Each BLD token is available at the laughably low price of <strong>0.00042$</strong> during the presale. Remember, this is your chance to be part of something hilariously innovative!</p>
+        <div class="joke">What do you call a bear with no socks on? Barefoot!</div>
+        
+        <h2>Presale Payment Options</h2>
+        <div class="payment-options">
+            <form id="presaleForm">
+                <label for="paymentMethod">Choose Payment Method:</label>
+                <select id="paymentMethod" name="paymentMethod" required>
+                    <option value="">Select...</option>
+                    <option value="fiat">Fiat (Traditional Currency)</option>
+                    <option value="solana">Solana (SOL)</option>
+                </select>
+                
+                <div id="solanaAmount" style="display: none;">
+                    <label for="solAmount">Amount in Solana (0.1 - 2 SOL):</label>
+                    <input type="number" id="solAmount" name="solAmount" min="0.1" max="2" step="0.1" placeholder="Enter amount" required>
+                    <p id="bldAmount"></p>
+                </div>
+                
+                <div id="fiatWalletAddress" style="display: none;">
+                    <label for="walletAddress">Your Solana Wallet Address:</label>
+                    <input type="text" id="walletAddress" name="walletAddress" placeholder="Enter your Solana wallet address" required>
+                </div>
+                
+                <button type="submit" id="submitPayment">Proceed to Payment</button>
+            </form>
+        </div>
+            <div class="distribution-box">
+                <h3>Token Distribution</h3>
+                <ul>
+                    <li><strong>50%</strong> - Community Rewards and Mini-games</li>
+                    <li><strong>30%</strong> - Development and Marketing</li>
+                    <li><strong>10%</strong> - Team and Advisors</li>
+                    <li><strong>10%</strong> - Liquidity and Exchange Listings</li>
+                </ul>
             </div>
-            <div id="fiatWalletAddress">
-                <label for="walletAddress">Your Solana Wallet Address:</label>
-                <input type="text" id="walletAddress" name="walletAddress" placeholder="Enter your wallet address" required>
-            </div>
-            <label for="walletAddress">Your Wallet Address:</label>
-            <input type="text" id="walletAddress" name="walletAddress" placeholder="Enter your wallet address" required>
-            <button type="submit">Submit Payment</button>
-        </form>
-        <p id="bldAmount"></p>
-    </div>
 
-    <script src="../js/blondie_payment.js"></script>
-</body>
+            <div class="supply-box">
+                <h3>Total Supply</h3>
+                <p>1,000,000,000 BLD</p>
+            </div>
+        </div>
+        <footer>
+            <p>© 2023 Blondie Token. All rights reserved. 💋</p>
+        </footer>
+
+        <script src="../js/blondie_payment.js"></script>
+    </body>
 </html>
