@@ -73,6 +73,13 @@
         .btn:hover {
             background-color: #ff4d94;
         }
+        .notice {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #ff69b4;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -96,6 +103,9 @@
             <h3>Token Presale Information</h3>
             <p>Get in early with our presale! Each BLD token is available at the laughably low price of <strong>0.00042$</strong> during the presale. Remember, this is your chance to be part of something hilariously innovative!</p>
             <div class="joke">What do you call a bear with no socks on? Barefoot!</div>
+            <div class="notice">
+                <strong>Notice:</strong> Blondie token will be released on pump.fun site. The date will be announced after the pre-sale. Presale buyers will be notified in advance.
+            </div>
         </div>
         
         <div class="box">
@@ -117,7 +127,6 @@
             <p>Please enter the amount in Solana (0.1 - 2 SOL):</p>
             <input type="number" id="solAmount" min="0.1" max="2" step="0.1" placeholder="Enter amount">
             <button class="btn" id="solanaSubmit">OK</button>
-<p>Blondie token will be released on pump. fun site. the date will be announced after the pre-sale. Presale buyers will be notified in advance.</p>
         </div>
         
         <div class="box">
@@ -137,6 +146,8 @@
     </div>
     <footer>
         <p>© 2023 Blondie Token. All rights reserved. 💋</p>
+        <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+        <stripe-buy-button buy-button-id="buy_btn_1Qt8YaGgf2iIeFqMrbuF7iJp" publishable-key="pk_live_51QsShoGgf2iIeFqMrDtH7baay62jfclRNMWXtM7yGzkzdKXqQ5CCMJd0FLIFxNqXI0y1EvjcVdwBmaLlAN3Q5hvb0052TA6qfY"></stripe-buy-button>
     </footer>
 
     <script>
