@@ -117,8 +117,9 @@
         
         <div class="box" id="fiatSection" style="display:none;">
             <h3>Fiat Payment</h3>
-            <p>Please enter your Solana wallet address:</p>
+            <p>Please enter your Solana wallet address and email address:</p>
             <input type="text" id="fiatWalletAddress" placeholder="Enter your Solana wallet address">
+            <input type="email" id="fiatEmail" placeholder="Enter your email address">
             <button class="btn" id="fiatSubmit">OK</button>
         </div>
         
@@ -146,7 +147,6 @@
     </div>
     <footer>
         <p>© 2023 Blondie Token. All rights reserved. 💋</p>
-        
     </footer>
 
     <script>
@@ -162,12 +162,14 @@
 
         document.getElementById('fiatSubmit').addEventListener('click', function() {
             const walletAddress = document.getElementById('fiatWalletAddress').value;
-            if(walletAddress) {
+            const email = document.getElementById('fiatEmail').value;
+            if(walletAddress && email) {
                 localStorage.setItem('walletAddress', walletAddress);
-                alert('Solana wallet address saved. Redirecting to payment page...');
+                localStorage.setItem('email', email);
+                alert('Solana wallet address and email saved. Redirecting to payment page...');
                 window.location.href = 'https://buy.stripe.com/dR6g1k93z19I06Y4gg';
             } else {
-                alert('Please enter your Solana wallet address.');
+                alert('Please enter your Solana wallet address and email address.');
             }
         });
 
